@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Roofs N More — Your Quote</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Narrow:wght@400;500;600;700&display=swap');
+  body { font-family: 'Archivo', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .narrow { font-family: 'Archivo Narrow', system-ui, sans-serif; }
+  .stripe-bg {
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 14px);
+  }
+  /* Custom slider */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: #e2e8f0;
+    height: 8px;
+    border-radius: 9999px;
+  }
+  input[type="range"]::-moz-range-track {
+    background: #e2e8f0;
+    height: 8px;
+    border-radius: 9999px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #f97316;
+    height: 28px;
+    width: 28px;
+    border-radius: 9999px;
+    margin-top: -10px;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+    border: 3px solid white;
+  }
+  input[type="range"]::-moz-range-thumb {
+    background: #f97316;
+    height: 28px;
+    width: 28px;
+    border-radius: 9999px;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+    border: 3px solid white;
+  }
+  .signature-canvas { touch-action: none; }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .slide-up { animation: slideUp 300ms cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .fade-in { animation: fadeIn 200ms ease-out; }
+</style>
+</head>
+<body class="bg-stone-100">
+
+<!-- Sticky compact header -->
+<div id="sticky-header" class="fixed top-0 left-0 right-0 z-40 bg-white border-b-2 border-stone-200 transition-all duration-300 -translate-y-full">
+  <div class="max-w-md mx-auto px-4 py-2.5 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-md bg-orange-500 flex items-center justify-center text-white font-black text-base shadow-md">R</div>
+      <div class="leading-tight">
+        <div class="text-[10px] text-stone-700 font-bold uppercase tracking-widest">Quote for</div>
+        <div class="text-sm font-black text-stone-900">Sarah</div>
+      </div>
+    </div>
+    <button onclick="openSignModal()" class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-md text-xs font-black uppercase tracking-widest shadow-md active:scale-95 transition-transform">
+      Sign Now
+    </button>
+  </div>
+</div>
+
+<div class="max-w-md mx-auto pb-32">
+
+  <!-- HERO -->
+  <div class="relative bg-stone-900 stripe-bg px-6 pt-10 pb-14 overflow-hidden">
+    <!-- Top utility row -->
+    <div class="flex items-center justify-between mb-8 relative">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-md bg-white flex items-center justify-center shadow-xl">
+          <span class="text-orange-500 font-black text-2xl">R</span>
+        </div>
+        <div class="leading-tight">
+          <div class="font-black text-base tracking-tight text-white">ROOFS N MORE</div>
+          <div class="text-[10px] text-orange-400 font-bold uppercase tracking-widest">Houston, TX</div>
+        </div>
+      </div>
+      <div class="text-right">
+        <div class="text-[9px] font-bold uppercase tracking-widest text-stone-400">Quote</div>
+        <div class="text-[10px] font-black tracking-wide text-white">RNM-2026-04827</div>
+      </div>
+    </div>
+
+    <!-- Big orange callout bar — industrial signage feel -->
+    <div class="bg-orange-500 text-white px-4 py-2 inline-block rounded-sm mb-4 -ml-1">
+      <span class="text-xs font-black uppercase tracking-[0.2em]">Hi Sarah —</span>
+    </div>
+
+    <h1 class="text-4xl font-black tracking-tight leading-[1.05] mb-4 text-white">
+      Your new roof,<br />
+      <span class="text-orange-400">ready when you are.</span>
+    </h1>
+
+    <p class="text-stone-200 text-sm leading-relaxed font-medium">
+      Mike put together everything for 4827 Oak Ridge Dr. Take your time, scroll through, and sign whenever you're ready.
+    </p>
+  </div>
+
+  <!-- TRUST BADGES — solid orange backgrounds, white SVG icons -->
+  <div class="bg-white border-b-2 border-stone-200 px-5 py-6">
+    <div class="grid grid-cols-3 gap-3">
+      <div class="flex flex-col items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center mb-2 shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="text-lg font-black text-stone-900 leading-none">4.9</div>
+        <div class="text-[10px] text-stone-700 font-bold uppercase tracking-wider mt-0.5">247 Reviews</div>
+      </div>
+      <div class="flex flex-col items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center mb-2 shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="text-lg font-black text-stone-900 leading-none">A+</div>
+        <div class="text-[10px] text-stone-700 font-bold uppercase tracking-wider mt-0.5">BBB Rating</div>
+      </div>
+      <div class="flex flex-col items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center mb-2 shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="text-lg font-black text-stone-900 leading-none">GAF</div>
+        <div class="text-[10px] text-stone-700 font-bold uppercase tracking-wider mt-0.5">Master Elite</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YOUR REP -->
+  <div class="bg-white px-5 py-5 border-b-2 border-stone-200">
+    <div class="flex items-center gap-3">
+      <div class="w-14 h-14 rounded-full bg-orange-500 flex items-center justify-center text-white font-black text-2xl shadow-md">M</div>
+      <div class="flex-1">
+        <div class="text-[10px] font-bold text-stone-700 uppercase tracking-widest">Your Specialist</div>
+        <div class="font-black text-stone-900 text-base">Mike Reyes</div>
+        <div class="text-xs text-stone-700 font-medium">Roofs N More · Houston</div>
+      </div>
+      <a href="tel:7135559981" class="w-12 h-12 rounded-full bg-stone-900 flex items-center justify-center active:bg-stone-700 shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- THE SYSTEM -->
+  <div class="px-5 py-7">
+    <div class="text-[11px] font-black text-orange-700 uppercase tracking-[0.2em] mb-1">The System</div>
+    <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-4">What's going on your home</h2>
+
+    <div class="bg-white rounded-md border-2 border-stone-300 overflow-hidden shadow-md">
+      <div class="bg-orange-500 px-4 py-4">
+        <div class="text-[11px] font-bold uppercase tracking-widest text-white">Selected For You</div>
+        <div class="text-2xl font-black tracking-tight text-white">Designer Roof System</div>
+        <div class="text-xs text-white font-medium mt-0.5">GAF Timberline UHDZ</div>
+      </div>
+      <div class="p-4 space-y-3">
+        <!-- 50yr warranty -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-md bg-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="flex-1 min-w-0 pt-0.5">
+            <div class="text-sm font-bold text-stone-900 leading-tight">50-year manufacturer warranty</div>
+            <div class="text-xs text-stone-700 leading-tight mt-0.5 font-medium">Covers shingles &amp; accessories</div>
+          </div>
+        </div>
+        <!-- 10yr workmanship -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-md bg-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/></svg>
+          </div>
+          <div class="flex-1 min-w-0 pt-0.5">
+            <div class="text-sm font-bold text-stone-900 leading-tight">10-year workmanship warranty</div>
+            <div class="text-xs text-stone-700 leading-tight mt-0.5 font-medium">Direct from Roofs N More</div>
+          </div>
+        </div>
+        <!-- Wind rating -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-md bg-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg>
+          </div>
+          <div class="flex-1 min-w-0 pt-0.5">
+            <div class="text-sm font-bold text-stone-900 leading-tight">130 MPH wind rating</div>
+            <div class="text-xs text-stone-700 leading-tight mt-0.5 font-medium">Hurricane-grade performance</div>
+          </div>
+        </div>
+        <!-- StainGuard -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-md bg-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+          </div>
+          <div class="flex-1 min-w-0 pt-0.5">
+            <div class="text-sm font-bold text-stone-900 leading-tight">StainGuard Plus</div>
+            <div class="text-xs text-stone-700 leading-tight mt-0.5 font-medium">25-year algae &amp; streak protection</div>
+          </div>
+        </div>
+        <!-- Recycled -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-md bg-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          </div>
+          <div class="flex-1 min-w-0 pt-0.5">
+            <div class="text-sm font-bold text-stone-900 leading-tight">Old roof 100% recycled</div>
+            <div class="text-xs text-stone-700 leading-tight mt-0.5 font-medium">Zero landfill waste</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE WORK -->
+  <div class="px-5 py-7">
+    <div class="text-[11px] font-black text-orange-700 uppercase tracking-[0.2em] mb-1">The Work</div>
+    <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-4">11 things we do — included</h2>
+    <div class="bg-white rounded-md border-2 border-stone-300 shadow-md divide-y-2 divide-stone-200">
+      <!-- Generated dynamically -->
+      <div id="work-list"></div>
+    </div>
+  </div>
+
+  <!-- LOCAL WORK -->
+  <div class="px-5 py-7">
+    <div class="text-[11px] font-black text-orange-700 uppercase tracking-[0.2em] mb-1">Local Work</div>
+    <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-4">Recently completed near you</h2>
+    <div class="grid grid-cols-2 gap-3" id="local-work"></div>
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <div class="px-5 py-7">
+    <div class="bg-stone-900 stripe-bg rounded-md p-6 shadow-lg border-2 border-stone-800">
+      <div class="flex gap-0.5 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p class="text-base leading-relaxed mb-4 italic text-white font-medium">
+        "After hail damage, we got 4 quotes. Roofs N More wasn't the cheapest, but Mike walked us through every detail and the crew finished in 2 days. Magnetic sweep, no nails in the yard, my dog was safe. Worth every penny."
+      </p>
+      <div class="flex items-center justify-between text-xs">
+        <div class="font-black text-white">— JENNIFER P.</div>
+        <div class="text-orange-400 font-bold uppercase tracking-wider">Memorial · Sept 2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICE REVEAL -->
+  <div class="px-5 py-7">
+    <div class="bg-white rounded-md border-4 border-orange-500 overflow-hidden shadow-2xl">
+      <div class="bg-orange-500 px-5 py-3 text-center">
+        <div class="text-[11px] font-bold uppercase tracking-[0.25em] text-white">Your Investment</div>
+      </div>
+
+      <!-- Toggle -->
+      <div class="px-5 pt-5">
+        <div class="bg-stone-200 rounded-md p-1 flex gap-1">
+          <button onclick="setPriceView('monthly')" id="toggle-monthly" class="flex-1 rounded-md py-3 text-xs font-black uppercase tracking-widest transition-all bg-stone-900 text-white shadow-md">
+            Monthly Payment
+          </button>
+          <button onclick="setPriceView('total')" id="toggle-total" class="flex-1 rounded-md py-3 text-xs font-black uppercase tracking-widest transition-all text-stone-800">
+            Pay In Full
+          </button>
+        </div>
+      </div>
+
+      <!-- Monthly view -->
+      <div id="monthly-view" class="p-5 pt-4">
+        <div class="text-center mb-5">
+          <div class="text-[12px] font-black text-stone-900 uppercase tracking-[0.25em] mb-1">As Low As</div>
+          <div id="monthly-amount" class="text-7xl font-black text-stone-900 tracking-tighter leading-none">$245</div>
+          <div class="text-base font-bold text-stone-800 mt-1">per month</div>
+        </div>
+
+        <div class="bg-stone-100 rounded-md p-4 mb-3 border-2 border-stone-200">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-[11px] font-black text-stone-800 uppercase tracking-widest">Term Length</div>
+            <div id="term-display" class="text-sm font-black text-stone-900">10 years</div>
+          </div>
+          <input type="range" min="60" max="180" step="12" value="120" id="term-slider" class="w-full" />
+          <div class="flex justify-between text-[11px] font-bold text-stone-700 uppercase tracking-wider mt-2">
+            <span>5 yr</span>
+            <span>10 yr</span>
+            <span>15 yr</span>
+          </div>
+        </div>
+
+        <div class="bg-stone-100 rounded-md px-4 py-3 flex items-center justify-between border-2 border-stone-200">
+          <div>
+            <div class="text-[11px] font-bold text-stone-800 uppercase tracking-widest">Total Project</div>
+            <div id="apr-display" class="text-xs text-stone-700 font-medium">8.99% APR · 120 months</div>
+          </div>
+          <div class="text-2xl font-black text-stone-900">$19,350</div>
+        </div>
+
+        <div class="bg-emerald-600 rounded-md p-3 flex items-start gap-3 mt-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+          <div>
+            <div class="text-xs font-black text-white">Pre-Approved through GreenSky</div>
+            <div class="text-[11px] text-white mt-0.5 font-medium">Up to $22,000 available · No prepayment penalty</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pay in full view (hidden) -->
+      <div id="total-view" class="p-5 pt-4 hidden">
+        <div class="text-center mb-5">
+          <div class="text-[12px] font-black text-orange-700 uppercase tracking-[0.25em] mb-1">Pay In Full</div>
+          <div class="text-7xl font-black text-stone-900 tracking-tighter leading-none">$19,350</div>
+          <div class="text-sm font-bold text-stone-800 mt-2">All materials · labor · permits</div>
+        </div>
+
+        <div class="bg-stone-100 rounded-md p-4 space-y-3 border-2 border-stone-200">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black text-stone-900">Deposit at signing</div>
+              <div class="text-[11px] text-stone-700 font-semibold">3% of total</div>
+            </div>
+            <div class="text-base font-black text-stone-900">$580</div>
+          </div>
+          <div class="border-t-2 border-stone-300"></div>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black text-stone-900">Balance at completion</div>
+              <div class="text-[11px] text-stone-700 font-semibold">When job is done</div>
+            </div>
+            <div class="text-base font-black text-stone-900">$18,770</div>
+          </div>
+        </div>
+
+        <div class="text-center text-[11px] text-stone-700 mt-3 font-bold uppercase tracking-wider">
+          Card · ACH · Check accepted
+        </div>
+      </div>
+
+      <div class="border-t-2 border-stone-200 px-5 py-3 flex items-center justify-center gap-2 text-[11px] text-stone-800 font-bold uppercase tracking-widest bg-stone-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        Quote valid through May 9, 2026
+      </div>
+    </div>
+  </div>
+
+  <!-- THE PROCESS -->
+  <div class="px-5 py-7">
+    <div class="text-[11px] font-black text-orange-700 uppercase tracking-[0.2em] mb-1">The Process</div>
+    <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-4">What happens when you sign</h2>
+    <div class="bg-white rounded-md border-2 border-stone-300 p-5 shadow-md">
+      <div id="timeline-1"></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="px-5 py-7">
+    <div class="text-[11px] font-black text-orange-700 uppercase tracking-[0.2em] mb-1">Questions</div>
+    <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-4">The things people usually ask</h2>
+    <div class="bg-white rounded-md border-2 border-stone-300 overflow-hidden shadow-md divide-y-2 divide-stone-200" id="faqs"></div>
+  </div>
+
+  <!-- GUARANTEE -->
+  <div class="px-5 py-7">
+    <div class="bg-stone-900 stripe-bg rounded-md p-6 shadow-lg border-2 border-stone-800 relative overflow-hidden">
+      <div class="flex items-center gap-2 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-orange-400">No-Risk Guarantee</span>
+      </div>
+      <div class="text-xl font-black leading-tight mb-3 text-white">
+        3-day cancellation.<br />
+        10-year workmanship.<br />
+        50-year materials.
+      </div>
+      <div class="text-xs text-stone-200 leading-relaxed font-medium">
+        Texas law gives you 3 business days to cancel for any reason. After that, you're protected by the strongest warranty stack in Houston roofing.
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="px-5 pt-2 pb-8">
+    <button onclick="openSignModal()" class="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-5 px-6 shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-3 font-black text-lg uppercase tracking-wider">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 19.5V21a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h11.5L20 5.5"/><path d="m15 5 6 6"/><path d="M16 14h6"/><path d="M19 11v6"/></svg>
+      Sign &amp; Get Started
+    </button>
+    <div class="text-center text-[11px] text-stone-800 mt-3 font-bold uppercase tracking-widest flex items-center justify-center gap-1.5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Secure · Texas RCAT licensed · Insured
+    </div>
+  </div>
+</div>
+
+<!-- SIGN MODAL -->
+<div id="sign-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-end fade-in">
+  <div class="w-full bg-white rounded-t-3xl max-h-[92vh] overflow-y-auto slide-up">
+    <div class="sticky top-0 bg-white border-b-2 border-stone-200 px-5 py-4 flex items-center justify-between">
+      <div>
+        <div class="text-[11px] font-black text-orange-700 uppercase tracking-widest">Sign Contract</div>
+        <div class="text-base font-black text-stone-900">Final step — almost there</div>
+      </div>
+      <button onclick="closeSignModal()" class="w-9 h-9 rounded-full bg-stone-200 flex items-center justify-center active:bg-stone-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="p-5 space-y-5">
+      <div class="bg-stone-100 rounded-md p-4 space-y-2 border-2 border-stone-200">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-stone-800 font-medium">Project</span>
+          <span class="text-stone-900 font-bold">Designer Roof System</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-stone-800 font-medium">Address</span>
+          <span class="text-stone-900 font-bold">4827 Oak Ridge Dr</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-stone-800 font-medium">Total</span>
+          <span class="text-stone-900 font-black text-base">$19,350</span>
+        </div>
+      </div>
+
+      <div class="text-sm text-stone-900 leading-relaxed">
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded border-2 border-orange-500 bg-orange-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            I have reviewed the full <span class="text-stone-900 font-bold underline">Roof Replacement Agreement</span> and agree to all terms, including the 3-day right to cancel and 10-year workmanship warranty.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-[11px] font-black text-stone-800 uppercase tracking-widest">Sign with your finger</label>
+          <button onclick="clearSig()" id="clear-btn" class="text-[11px] font-bold text-orange-700 uppercase tracking-wider hidden">Clear</button>
+        </div>
+        <div class="relative bg-white border-2 border-dashed border-stone-500 rounded-md overflow-hidden" style="height: 160px;">
+          <canvas id="sig-canvas" width="400" height="160" class="signature-canvas w-full h-full"></canvas>
+          <div id="sig-placeholder" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="text-center text-stone-700">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-1"><path d="M20 19.5V21a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h11.5L20 5.5"/></svg>
+              <div class="text-xs font-bold">Sign here</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-[11px] text-stone-800 mt-2 text-center font-medium">
+          By signing, you agree to the contract terms and authorize Roofs N More to begin scheduled work.
+        </div>
+      </div>
+
+      <button onclick="completeSign()" id="confirm-btn" disabled class="w-full rounded-md py-4 font-black text-base uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-stone-300 text-stone-600">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Confirm &amp; Submit
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div id="payment-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-end fade-in">
+  <div class="w-full bg-white rounded-t-3xl max-h-[92vh] overflow-y-auto slide-up">
+    <div class="sticky top-0 bg-white border-b-2 border-stone-200 px-5 py-4 flex items-center justify-between">
+      <div>
+        <div class="text-[11px] font-black text-emerald-700 uppercase tracking-widest flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+          Signed
+        </div>
+        <div class="text-base font-black text-stone-900">Choose how you'll pay</div>
+      </div>
+      <button onclick="closePayment()" class="w-9 h-9 rounded-full bg-stone-200 flex items-center justify-center active:bg-stone-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="p-5 space-y-3">
+      <button onclick="selectPayment('financing')" id="pay-financing" class="w-full text-left rounded-md p-5 border-2 border-stone-300 bg-white transition-all">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-12 h-12 rounded-md bg-stone-900 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="text-[11px] font-black uppercase tracking-widest text-emerald-700">✓ Pre-Approved</div>
+            <div class="text-base font-black tracking-tight text-stone-900">Finance with GreenSky</div>
+          </div>
+        </div>
+        <div class="text-sm text-stone-900">
+          <div class="font-bold" id="pay-financing-amount">$245/mo · 120 months</div>
+          <div class="text-xs mt-1 font-medium text-stone-800">No deposit required · Loan funds released at completion</div>
+        </div>
+      </button>
+
+      <button onclick="selectPayment('deposit')" id="pay-deposit" class="w-full text-left rounded-md p-5 border-2 border-stone-300 bg-white transition-all">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-12 h-12 rounded-md bg-orange-500 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-black text-2xl">$</span>
+          </div>
+          <div>
+            <div class="text-[11px] font-black uppercase tracking-widest text-orange-700">Pay Direct</div>
+            <div class="text-base font-black tracking-tight text-stone-900">Pay 3% Deposit Now</div>
+          </div>
+        </div>
+        <div class="text-sm text-stone-900">
+          <div class="font-bold">$580 today · $18,770 at completion</div>
+          <div class="text-xs mt-1 font-medium text-stone-800">Card, ACH, or check accepted</div>
+        </div>
+      </button>
+
+      <button id="continue-btn" onclick="closePayment()" class="hidden w-full bg-stone-900 text-white rounded-md py-4 font-black text-base uppercase tracking-wider shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-4">
+        <span id="continue-text">Continue</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+
+      <div class="flex items-center justify-center gap-1.5 text-[11px] text-stone-800 font-bold uppercase tracking-widest pt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        256-bit encrypted · PCI compliant
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS PAGE -->
+<div id="success-page" class="hidden fixed inset-0 z-50 bg-orange-50 overflow-y-auto">
+  <div class="max-w-md mx-auto px-5 pt-16 pb-12 text-center">
+    <div class="w-24 h-24 rounded-full bg-emerald-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+    </div>
+    <h1 class="text-3xl font-black text-stone-900 tracking-tight mb-2">You're all set, Sarah!</h1>
+    <p class="text-stone-800 mb-8 font-medium">Your contract is signed and your project is in our queue.</p>
+    <div class="bg-white rounded-md border-2 border-stone-300 p-6 text-left shadow-md">
+      <div class="text-[11px] font-black text-orange-700 uppercase tracking-[0.2em] mb-4">What Happens Next</div>
+      <div id="timeline-2"></div>
+    </div>
+    <button onclick="closeSuccess()" class="mt-6 text-sm text-stone-700 underline font-bold">Back to quote summary</button>
+  </div>
+</div>
+
+<script>
+const APR = 8.99;
+const TOTAL = 19350;
+let priceView = 'monthly';
+let paymentMethod = null;
+let isDrawing = false;
+let hasSig = false;
+
+// ----- Sticky header -----
+window.addEventListener('scroll', () => {
+  const h = document.getElementById('sticky-header');
+  if (window.scrollY > 200) h.classList.remove('-translate-y-full');
+  else h.classList.add('-translate-y-full');
+});
+
+// ----- Price view toggle -----
+function setPriceView(view) {
+  priceView = view;
+  const m = document.getElementById('toggle-monthly');
+  const t = document.getElementById('toggle-total');
+  const mv = document.getElementById('monthly-view');
+  const tv = document.getElementById('total-view');
+  if (view === 'monthly') {
+    m.className = 'flex-1 rounded-md py-3 text-xs font-black uppercase tracking-widest transition-all bg-stone-900 text-white shadow-md';
+    t.className = 'flex-1 rounded-md py-3 text-xs font-black uppercase tracking-widest transition-all text-stone-800';
+    mv.classList.remove('hidden');
+    tv.classList.add('hidden');
+  } else {
+    m.className = 'flex-1 rounded-md py-3 text-xs font-black uppercase tracking-widest transition-all text-stone-800';
+    t.className = 'flex-1 rounded-md py-3 text-xs font-black uppercase tracking-widest transition-all bg-orange-500 text-white shadow-md';
+    mv.classList.add('hidden');
+    tv.classList.remove('hidden');
+  }
+}
+
+// ----- Slider -----
+const slider = document.getElementById('term-slider');
+const monthlyAmount = document.getElementById('monthly-amount');
+const termDisplay = document.getElementById('term-display');
+const aprDisplay = document.getElementById('apr-display');
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+function updateMonthly() {
+  const months = parseInt(slider.value);
+  const monthlyRate = APR / 100 / 12;
+  const m = (TOTAL * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+  monthlyAmount.textContent = fmt(m);
+  termDisplay.textContent = (months / 12) + ' years';
+  aprDisplay.textContent = APR + '% APR · ' + months + ' months';
+  document.getElementById('pay-financing-amount').textContent = fmt(m) + '/mo · ' + months + ' months';
+}
+slider.addEventListener('input', updateMonthly);
+updateMonthly();
+
+// ----- Work list -----
+const workItems = [
+  'Complete tear-off down to decking',
+  'Decking inspection & replacement (up to 3 sheets)',
+  'Premium synthetic underlayment',
+  'Ice & water shield at all valleys',
+  'New metal drip edge',
+  'New flashing & pipe boots',
+  'Ridge vent ventilation',
+  'Designer architectural shingles',
+  'Matching ridge cap',
+  'Daily cleanup & final magnetic sweep',
+  'All permits & inspections',
+];
+document.getElementById('work-list').innerHTML = workItems.map(item => `
+  <div class="flex items-start gap-3 px-4 py-3 border-b border-stone-200 last:border-0">
+    <div class="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <span class="text-sm text-stone-900 leading-tight font-medium pt-0.5">${item}</span>
+  </div>
+`).join('');
+
+// ----- Local work -----
+const localJobs = [
+  { area: 'Memorial', distance: '1.2 mi', tier: 'Designer' },
+  { area: 'Tanglewood', distance: '2.4 mi', tier: 'Storm Shield' },
+  { area: 'Briargrove', distance: '0.9 mi', tier: 'Designer' },
+  { area: 'River Oaks', distance: '3.1 mi', tier: 'Storm Shield' },
+];
+document.getElementById('local-work').innerHTML = localJobs.map(job => `
+  <div class="bg-white rounded-md border-2 border-stone-300 overflow-hidden shadow-md">
+    <div class="aspect-[4/3] bg-stone-700 relative">
+      <div class="absolute inset-0 opacity-25" style="background-image: repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 8px);"></div>
+      <div class="absolute bottom-2 right-2 bg-orange-500 text-white px-2 py-0.5 rounded-sm text-[10px] font-black uppercase tracking-wider">
+        ${job.distance}
+      </div>
+    </div>
+    <div class="p-2.5">
+      <div class="text-xs font-black text-stone-900">${job.area}</div>
+      <div class="text-[11px] text-stone-700 font-semibold">${job.tier} · 2025</div>
+    </div>
+  </div>
+`).join('');
+
+// ----- Timelines -----
+const tl1 = [
+  { label: "Right away", text: "Mike calls to confirm and answer any questions" },
+  { label: "Within 48 hrs", text: "You pick shingle color, we order materials" },
+  { label: "Days 3–7", text: "We pull permits and schedule your crew" },
+  { label: "Project day", text: "Crew starts at 7–8 AM. Most jobs take 1–3 days" },
+  { label: "After completion", text: "Final inspection, magnetic sweep, balance due" },
+];
+const tl2 = [
+  { label: "Today", text: "Mike will call within 1 business hour to confirm" },
+  { label: "Within 48 hrs", text: "Color selection & material confirmation" },
+  { label: "Days 3–7", text: "Permit pulled, crew scheduled" },
+  { label: "Project day", text: "Crew arrives between 7–8 AM" },
+];
+function buildTimeline(items, lastFlag) {
+  return items.map((item, i) => `
+    <div class="flex gap-3">
+      <div class="flex flex-col items-center flex-shrink-0">
+        <div class="w-9 h-9 rounded-md bg-orange-500 flex items-center justify-center text-white font-black text-sm shadow-md">${i + 1}</div>
+        ${i < items.length - 1 ? '<div class="w-1 flex-1 bg-stone-300 mt-1"></div>' : ''}
+      </div>
+      <div class="flex-1 pb-3">
+        <div class="text-[11px] font-black text-orange-700 uppercase tracking-widest">${item.label}</div>
+        <div class="text-sm text-stone-900 leading-tight font-medium">${item.text}</div>
+      </div>
+    </div>
+  `).join('');
+}
+document.getElementById('timeline-1').innerHTML = buildTimeline(tl1);
+document.getElementById('timeline-2').innerHTML = buildTimeline(tl2);
+
+// ----- FAQs -----
+const faqs = [
+  { q: 'How long will the project take?', a: 'Most roofs in your size range are completed in 1–3 days, weather permitting. Tear-off happens on day one, decking inspection and underlayment on day two, finish work and cleanup on day three. We do a magnetic nail sweep daily.' },
+  { q: 'What if it rains during the work?', a: 'We monitor weather closely. If rain is forecast mid-tear-off, we either delay the start or tarp the exposed sections. Your home will not be left exposed overnight.' },
+  { q: 'Will my landscaping be protected?', a: 'Yes. We tarp shrubs and flowerbeds, position dump trailers on driveways or street (never on grass), and protect HVAC units, pools, and decks. Daily debris cleanup and final magnetic sweep are included.' },
+  { q: 'What does the workmanship warranty cover?', a: 'Our 10-year workmanship warranty covers any leak or installation defect attributable to our labor. Manufacturer warranty (50 years on Designer system) covers the materials. Together, you are protected end-to-end.' },
+  { q: 'Can I cancel after signing?', a: 'Texas law gives you a 3-business-day right to cancel without penalty for any reason. After that window, the contract is binding but you can still adjust scope through a change order at any time.' },
+];
+document.getElementById('faqs').innerHTML = faqs.map((faq, i) => `
+  <button onclick="toggleFaq(${i})" class="w-full text-left px-4 py-4 active:bg-stone-50">
+    <div class="flex items-start justify-between gap-3">
+      <div class="text-sm font-bold text-stone-900 leading-tight flex-1">${faq.q}</div>
+      <svg id="faq-arrow-${i}" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <p id="faq-answer-${i}" class="text-xs text-stone-800 leading-relaxed mt-2 font-medium hidden">${faq.a}</p>
+  </button>
+`).join('');
+
+function toggleFaq(i) {
+  const ans = document.getElementById('faq-answer-' + i);
+  const arr = document.getElementById('faq-arrow-' + i);
+  ans.classList.toggle('hidden');
+  arr.classList.toggle('rotate-180');
+}
+
+// ----- Modals -----
+function openSignModal() {
+  document.getElementById('sign-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeSignModal() {
+  document.getElementById('sign-modal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+function completeSign() {
+  if (!hasSig) return;
+  closeSignModal();
+  setTimeout(() => {
+    document.getElementById('payment-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }, 400);
+}
+function closePayment() {
+  document.getElementById('payment-modal').classList.add('hidden');
+  document.getElementById('success-page').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeSuccess() {
+  document.getElementById('success-page').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function selectPayment(method) {
+  paymentMethod = method;
+  const fin = document.getElementById('pay-financing');
+  const dep = document.getElementById('pay-deposit');
+  const cont = document.getElementById('continue-btn');
+  const contText = document.getElementById('continue-text');
+
+  if (method === 'financing') {
+    fin.className = 'w-full text-left rounded-md p-5 border-2 border-stone-900 bg-stone-900 transition-all shadow-lg';
+    dep.className = 'w-full text-left rounded-md p-5 border-2 border-stone-300 bg-white transition-all';
+    fin.querySelectorAll('div, span').forEach(el => {
+      if (el.classList.contains('text-stone-900') || el.classList.contains('text-stone-800') || el.classList.contains('text-emerald-700')) {
+        el.classList.remove('text-stone-900', 'text-stone-800', 'text-emerald-700');
+        el.classList.add('text-white');
+      }
+    });
+    contText.textContent = 'Continue to Lender';
+    cont.classList.remove('hidden');
+  } else {
+    dep.className = 'w-full text-left rounded-md p-5 border-2 border-orange-500 bg-orange-500 transition-all shadow-lg';
+    fin.className = 'w-full text-left rounded-md p-5 border-2 border-stone-300 bg-white transition-all';
+    dep.querySelectorAll('div, span').forEach(el => {
+      if (el.classList.contains('text-stone-900') || el.classList.contains('text-stone-800') || el.classList.contains('text-orange-700')) {
+        el.classList.remove('text-stone-900', 'text-stone-800', 'text-orange-700');
+        el.classList.add('text-white');
+      }
+    });
+    contText.textContent = 'Pay $580 Now';
+    cont.classList.remove('hidden');
+  }
+}
+
+// ----- Signature canvas -----
+const canvas = document.getElementById('sig-canvas');
+const ctx = canvas.getContext('2d');
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return {
+    x: (clientX - rect.left) * scaleX,
+    y: (clientY - rect.top) * scaleY,
+  };
+}
+
+function startDraw(e) {
+  e.preventDefault();
+  isDrawing = true;
+  const pos = getPos(e);
+  ctx.beginPath();
+  ctx.moveTo(pos.x, pos.y);
+}
+
+function draw(e) {
+  if (!isDrawing) return;
+  e.preventDefault();
+  const pos = getPos(e);
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#0c0a09';
+  ctx.lineTo(pos.x, pos.y);
+  ctx.stroke();
+  if (!hasSig) {
+    hasSig = true;
+    document.getElementById('sig-placeholder').classList.add('hidden');
+    document.getElementById('clear-btn').classList.remove('hidden');
+    const btn = document.getElementById('confirm-btn');
+    btn.disabled = false;
+    btn.className = 'w-full rounded-md py-4 font-black text-base uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-orange-500 text-white shadow-lg active:scale-[0.98]';
+  }
+}
+
+function stopDraw() { isDrawing = false; }
+
+function clearSig() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hasSig = false;
+  document.getElementById('sig-placeholder').classList.remove('hidden');
+  document.getElementById('clear-btn').classList.add('hidden');
+  const btn = document.getElementById('confirm-btn');
+  btn.disabled = true;
+  btn.className = 'w-full rounded-md py-4 font-black text-base uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-stone-300 text-stone-600';
+}
+
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', stopDraw);
+canvas.addEventListener('mouseleave', stopDraw);
+canvas.addEventListener('touchstart', startDraw, { passive: false });
+canvas.addEventListener('touchmove', draw, { passive: false });
+canvas.addEventListener('touchend', stopDraw);
+</script>
+
+</body>
+</html>
